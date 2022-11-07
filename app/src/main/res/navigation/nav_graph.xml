@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/nameFragment">
+
+    <fragment
+        android:id="@+id/nameFragment"
+        android:name="com.example.a5m2hwlocecalculator.NameFragment"
+        android:label="fragment_name"
+        tools:layout="@layout/fragment_name" >
+        <action
+            android:id="@+id/action_nameFragment_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.a5m2hwlocecalculator.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_nameFragment"
+            app:destination="@id/nameFragment" />
+
+        <argument
+            android:name="fname"
+            app:argType="string" />
+        <argument
+            android:name="sname"
+            app:argType="string" />
+        <argument
+            android:name="percentage"
+            app:argType="string" />
+        <argument
+            android:name="result"
+            app:argType="string" />
+    </fragment>
+</navigation>
