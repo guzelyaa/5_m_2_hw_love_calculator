@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.navigation.fragment.findNavController
 import com.example.a5m2hwlocecalculator.databinding.FragmentResultBinding
-
 class ResultFragment : Fragment() {
 
-    private lateinit var binding: FragmentResultBinding
+    lateinit var binding: FragmentResultBinding
     private lateinit var navArgs: ResultFragmentArgs
 
     override fun onCreateView(

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.a5m2hwlocecalculator.databinding.FragmentNameBinding
 import com.google.android.material.snackbar.Snackbar
@@ -16,6 +17,8 @@ import retrofit2.Response
 class NameFragment : Fragment() {
 
     private lateinit var binding: FragmentNameBinding
+
+    private val viewModel:MainActivityViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,20 +37,32 @@ class NameFragment : Fragment() {
     }
 
     private fun getRequest(){
-        App.api.getPercentage(binding.edSname.text.toString(), binding.edFname.text.toString())
-            .enqueue(
-                object : Callback<CalculateModel>{
-                    override fun onResponse(call: Call<CalculateModel>, response: Response<CalculateModel>
-                    ) {
-                        findNavController().navigate(NameFragmentDirections.actionNameFragmentToResultFragment(response.body()?.firstName.toString(),
-                            response.body()?.secondName.toString(),response.body()?.percentage.toString(), response.body()?.result.toString()))
-                    }
+//        App.api.getPercentage(binding.edSname.text.toString(), binding.edFname.text.toString())
+//            .enqueue(
+//                object : Callback<CalculateModel>{
+//                    override fun onResponse(call: Call<CalculateModel>, response: Response<CalculateModel>
+//                    ) {
+//                        findNavController().navigate(NameFragmentDirections.actionNameFragmentToResultFragment(response.body()?.firstName.toString(),
+//                            response.body()?.secondName.toString(),response.body()?.percentage.toString(), response.body()?.result.toString()))
+//                    }
+//
+//                    override fun onFailure(call: Call<CalculateModel>, t: Throwable) {
+//
+//                    }
+//
+//                }
+//            )
 
-                    override fun onFailure(call: Call<CalculateModel>, t: Throwable) {
 
-                    }
-
-                }
-            )
+        viewModel.getRequest(binding.edSname.text.toString(), binding.edFname.text.toString())
+            .observe(viewLifecycleOwner, {
+                val fname : String = it.firstName
+                val sname:String = it.secondName
+                val percentage:String = it.percentage
+                val result:String = it.result
+                findNavController().navigate(NameFragmentDirections.
+                actionNameFragmentToResultFragment(fname,
+                    sname,percentage, result))
+            })
     }
 }
